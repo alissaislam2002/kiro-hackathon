@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#091d2c">
+  <meta name="description" content="Nour, your private voice companion for tasks, reminders, and daily reflection.">
+  <title>Nour · Daily voice companion</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="stylesheet" href="/styles.css">
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.186.1/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.186.1/examples/jsm/",
+        "@pixiv/three-vrm": "https://cdn.jsdelivr.net/npm/@pixiv/three-vrm@3.5.5/lib/three-vrm.module.min.js"
+      }
+    }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#composer">Skip to conversation</a>
+  <main class="app-shell">
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">N</span>
+        <div><strong>Nour</strong><span>Your day, made lighter</span></div>
+      </div>
+      <div class="service-state" id="service-state" role="status" aria-live="polite">
+        <span class="status-dot"></span><span>Connecting</span>
+      </div>
+      <button class="icon-button" id="voice-toggle" type="button" aria-pressed="true" aria-label="Turn voice off" title="Voice on">
+        <span aria-hidden="true">◖))</span>
+      </button>
+    </header>
+
+    <section class="stage" aria-label="Nour, animated assistant">
+      <div class="halo halo-one"></div><div class="halo halo-two"></div>
+      <canvas id="avatar-canvas" aria-label="Animated 3D character"></canvas>
+      <div class="load-state" id="load-state">Preparing Nour…</div>
+      <div class="speech-bubble" id="speech-bubble" role="status" aria-live="polite" hidden></div>
+      <div class="transcript" id="transcript" aria-live="polite" hidden></div>
+      <div class="stage-actions">
+        <button class="secondary-button" id="dance-button" type="button" disabled><span aria-hidden="true">♪</span> Dance</button>
+        <button class="mic-button" id="mic-button" type="button" disabled aria-label="Hold to talk">
+          <span aria-hidden="true">●</span><span>Hold to talk</span>
+        </button>
+      </div>
+    </section>
+
+    <aside class="planner" aria-labelledby="planner-title">
+      <div class="planner-heading">
+        <div><span class="eyebrow">Today</span><h1 id="planner-title">Daily focus</h1></div>
+        <button class="text-button" id="summary-button" type="button" disabled>Summarize</button>
+      </div>
+      <form class="quick-task" id="task-form">
+        <label for="task-title">Add something to your day</label>
+        <div class="task-fields">
+          <input id="task-title" name="title" maxlength="200" placeholder="e.g. Call Mum" required autocomplete="off">
+          <input id="task-due" name="due" type="datetime-local" aria-label="Optional due date and time">
+          <button type="submit" aria-label="Add task" disabled>+</button>
+        </div>
+      </form>
+      <div class="task-list" id="task-list" aria-live="polite">
+        <p class="empty-state">Your focus list will appear here.</p>
+      </div>
+      <div class="privacy-note"><span aria-hidden="true">◇</span><span>Tasks stay in this app’s local database. Secrets never enter the browser.</span></div>
+    </aside>
+
+    <section class="conversation" aria-label="Conversation">
+      <div class="conversation-log" id="conversation-log" aria-live="polite"></div>
+      <form class="composer" id="composer">
+        <label class="sr-only" for="message-input">Message Nour</label>
+        <input id="message-input" maxlength="500" autocomplete="off" placeholder="Ask Nour, or say “remind me to…”" disabled>
+        <span class="character-count" id="character-count">0/500</span>
+        <button id="send-button" type="submit" disabled>Send <span aria-hidden="true">↗</span></button>
+      </form>
+      <p class="hint">Press Enter to send · Hold Space to talk when the message box is not focused</p>
+    </section>
+  </main>
+
+  <div class="start-screen" id="start-screen">
+    <div class="start-card">
+      <span class="start-kicker">Your daily companion</span>
+      <h2>A calmer day starts with a conversation.</h2>
+      <p>Meet Nour. She remembers your tasks, helps assess your day, and speaks when you’re ready.</p>
+      <button id="start-button" type="button"><span>Click to start</span><span aria-hidden="true">→</span></button>
+      <small>Sound and the 3D introduction begin after your click.</small>
+    </div>
+  </div>
+
+  <template id="task-template">
+    <article class="task-item">
+      <button class="task-check" type="button" aria-label="Mark task complete"></button>
+      <div class="task-copy"><strong></strong><time></time></div>
+      <button class="task-delete" type="button" aria-label="Delete task">×</button>
+    </article>
+  </template>
+
+  <script type="module" src="/app.js"></script>
+</body>
+</html>

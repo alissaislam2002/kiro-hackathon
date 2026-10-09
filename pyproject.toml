@@ -1,0 +1,24 @@
+[project]
+name = "daylight-voice-agent"
+version = "1.0.0"
+description = "A character voice agent for daily tasks, reminders, and reflection"
+requires-python = ">=3.12"
+dependencies = [
+    "aws-sdk-transcribe-streaming[awscrt]==0.12.0",
+    "boto3==1.43.110",
+    "fastapi==0.143.0",
+    "langchain-aws==1.8.1",
+    "langgraph==1.2.14",
+    "python-dotenv==1.2.4",
+    "tzdata==2026.5",
+    "uvicorn[standard]==0.54.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest==9.1.1",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
